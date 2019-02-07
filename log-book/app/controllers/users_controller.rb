@@ -15,17 +15,25 @@ class UsersController < ApplicationController
   end
 
   get "/user/login" do
+    #binding.pry
     erb :'/user/login'
   end
 
   post "/user/login" do
-    @user = User.find_by(username: params[:username])
+    #binding.pry
+    @user = User.find_by(name: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
+      binding.pry
       redirect to "/user/account"
     else
-      redirect to "/failure"
+      redirect to "/user/failure"
     end
+  end
+
+  get '/user/account' do
+    @user = User.find_by(id: session[:user_id])
+    erb :'/user/account'
   end
 
   get "/failure" do
