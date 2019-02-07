@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190206235425) do
+ActiveRecord::Schema.define(version: 20190207234714) do
 
   create_table "jumps", force: :cascade do |t|
     t.integer "jump_number"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20190206235425) do
     t.string  "license"
     t.integer "canopy_size"
     t.string  "password_digest"
+    t.integer "jump_id"
   end
 
 end

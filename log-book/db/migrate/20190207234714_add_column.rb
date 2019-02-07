@@ -1,5 +1,5 @@
 class AddColumn < ActiveRecord::Migration
   def change
-    add_column :user, :jump_id, :integer
+    add_column :users, :jump_id, :integer
   end
 end
