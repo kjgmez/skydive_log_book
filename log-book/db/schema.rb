@@ -20,7 +20,8 @@ ActiveRecord::Schema.define(version: 20190206235425) do
     t.integer "jumper_id"
   end
 
-  create_table "user", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
+    t.string  "username"
     t.string  "name"
     t.string  "license"
     t.integer "canopy_size"
