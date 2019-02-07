@@ -5,6 +5,7 @@ class ApplicationController < Sinatra::Base
   set :session_secret, "l0gg_y0ur_jump"
   set :views, Proc.new{File.join(root, "../views.")}
 
+
   helpers do
     def logged_in?
       !!session[:user_id]
