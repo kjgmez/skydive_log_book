@@ -5,10 +5,11 @@ class UsersController < ApplicationController
   end
 
   post '/user/signup' do
+    binding.pry
     if params[:username] == "" || params[:password] == ""
-      redirect '/failure'
+      redirect '/users/failure'
     else
-      User.create(username: params[:username], password: params[:password])
+      User.create(name: params[:username], password: params[:password])
       redirect '/user/login'
     end
   end
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   get "/failure" do
-    erb :failure
+    erb :'/user/failure'
   end
 
   get "/user/logout" do
