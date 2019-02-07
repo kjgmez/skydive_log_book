@@ -36,6 +36,7 @@ class UsersController < ApplicationController
     if !@user.name || !@user.license || !@user.canopy_size
       redirect '/user/details'
     else
+      @jumps = Jump.all
       erb :'/user/profile'
     end
   end
