@@ -1,5 +1,6 @@
 require './config/environment'
-
+require './app/models/user'
+require './app/models/jump'
 class ApplicationController < Sinatra::Base
 
   configure do
