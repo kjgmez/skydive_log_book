@@ -4,7 +4,7 @@ class CreateJumps < ActiveRecord::Migration
       t.integer :jump_number
       t.integer :altitude
       t.string :description
-      t.string :password_digest
+      t.integer :jumper_id
     end
   end
 end
