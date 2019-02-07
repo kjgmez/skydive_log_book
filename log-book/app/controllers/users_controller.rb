@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      binding.pry
+      #binding.pry
       redirect to "/user/profile"
     else
       redirect to "/user/failure"
@@ -33,7 +33,23 @@ class UsersController < ApplicationController
   get '/user/profile' do
     binding.pry
     @user = User.find(session[:user_id])
-    erb :'/user/profile'
+    if !@user.name || !@user.license || !@user.canopy_size
+      redirect '/user/details'
+    else
+      erb :'/user/profile'
+    end
+  end
+
+  get '/user/details' do
+    erb :'/user/details'
+  end
+
+  post '/user/profile' do
+    @user = User.find(session[:user_id])
+    binding.pry
+    @user.update(params["user"])
+    @user.save
+    redirect '/user/profile'
   end
 
   get "/user/failure" do
