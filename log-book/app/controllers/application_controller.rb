@@ -1,6 +1,5 @@
 require './config/environment'
-require './app/models/user'
-require './app/models/jump'
+
 class ApplicationController < Sinatra::Base
 
   configure do
@@ -9,7 +8,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :welcome
+    erb :index
   end
 
 end
