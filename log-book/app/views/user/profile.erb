@@ -1,5 +1,9 @@
-<h1>Username: <%=@user.username%> </h1>
+<% if helpers.logged_in?(session) %>
+  <h1>Username: <%=@user.username%> </h1>
 
-<h2>Name: <%=@user.name %></h2>
-<h2>License: <%=@user.license %></h2>
-<h2>Canopy size: <%=@user.canopy_size %></h2>
+  <h2>Name: <%=@user.name %></h2>
+  <h2>License: <%=@user.license %></h2>
+  <h2>Canopy size: <%=@user.canopy_size %></h2>
+
+  <h4><a href="/user/logout">Log Out</a></h4>
+<% end %>
