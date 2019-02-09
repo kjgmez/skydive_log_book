@@ -32,17 +32,16 @@ class UsersController < ApplicationController
 
   get '/user/profile' do
     binding.pry
-    @user = User.find(session[:user_id])
-    if !@user.name || !@user.license || !@user.canopy_size
-      redirect '/user/details'
-    else
-      binding.pry
-      if logged_in?
+    if logged_in?
+      @user = User.find(session[:user_id])
+      if !@user.name || !@user.license || !@user.canopy_size
+        redirect '/user/details'
+      else
         @jumps = Jump.all
         erb :'/user/profile'
-      else
-        redirect '/user/details'
       end
+    else
+      redirect '/user/failure'
     end
   end
 
