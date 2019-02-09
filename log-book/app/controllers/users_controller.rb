@@ -36,8 +36,13 @@ class UsersController < ApplicationController
     if !@user.name || !@user.license || !@user.canopy_size
       redirect '/user/details'
     else
-      @jumps = Jump.all
-      erb :'/user/profile'
+      binding.pry
+      if logged_in?
+        @jumps = Jump.all
+        erb :'/user/profile'
+      else
+        redirect '/user/details'
+      end
     end
   end
 
@@ -59,17 +64,7 @@ class UsersController < ApplicationController
 
   get "/user/logout" do
     session.clear
-    redirect "/welcome"
-  end
-
-  helpers do
-    def logged_in?
-      !!session[:user_id]
-    end
-
-    def current_user
-      User.find(session[:user_id])
-    end
+    redirect "/user/login"
   end
 
 end
