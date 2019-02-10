@@ -1,0 +1,4 @@
+<% @jumps.collect do |jump| %>
+  <%= jump if jump.user_id == session[:user_id]%>
+  <br>
+<% end %>

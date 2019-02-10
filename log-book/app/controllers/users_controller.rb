@@ -24,37 +24,38 @@ class UsersController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       #binding.pry
-      redirect to "/user/profile"
+      redirect to "/user/show"
     else
       redirect to "/user/failure"
     end
   end
 
-  get '/user/profile' do
-    binding.pry
+  get '/user/show' do
+    #binding.pry
     if logged_in?
       @user = User.find(session[:user_id])
       if !@user.name || !@user.license || !@user.canopy_size
-        redirect '/user/details'
+        redirect '/user/new'
       else
         @jumps = Jump.all
-        erb :'/user/profile'
+        binding.pry
+        erb :'/user/show'
       end
     else
       redirect '/user/failure'
     end
   end
 
-  get '/user/details' do
-    erb :'/user/details'
+  get '/user/new' do
+    erb :'/user/new'
   end
 
-  post '/user/profile' do
+  post '/user/show' do
     @user = User.find(session[:user_id])
     binding.pry
     @user.update(params["user"])
     @user.save
-    redirect '/user/profile'
+    redirect '/user/show'
   end
 
   get "/user/failure" do

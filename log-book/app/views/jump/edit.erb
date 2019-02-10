@@ -1,5 +1,6 @@
-<h1>Create a new Jump:</h1>
-<form action="/jump/<%= @jump.id %>" method="PATCH">
+<h1>Update Jump:</h1>
+<form action="/jump/<%= @jump.id %>" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="patch">
 
   <label>Jump number:</label>
   <input id='jump_number' type="integer" name="jump[jump_number]" value="<%=@jump.id %>">
@@ -13,6 +14,6 @@
   <label>User:</label>
   <%= @user.name %>
   <br>
-  <input type="submit" value="Edit Jump">
+  <input type="submit" value="Update Jump">
 </form>
 
