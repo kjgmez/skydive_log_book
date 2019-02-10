@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   post "/user/login" do
-    binding.pry
+    #binding.pry
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   post '/user/show' do
     @user = User.find(session[:user_id])
-    #binding.pry
+    binding.pry
     @user.update(params["user"])
     @user.save
     redirect '/user/show'
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
 
   get "/user/logout" do
     session.clear
-    redirect "/user/login"
+    redirect "/"
   end
 
 end

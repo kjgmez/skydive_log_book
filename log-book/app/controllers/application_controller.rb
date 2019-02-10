@@ -10,6 +10,12 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
+  patch '/jump/:id' do
+    jump = Jump.find_by(id: params[:id])
+    jump.update(params[:jump])
+    redirect to "jump/#{jump.id}"
+  end
+
   helpers do
     def logged_in?
       !!session[:user_id]

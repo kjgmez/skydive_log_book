@@ -13,10 +13,11 @@ class JumpsController < ApplicationController
   end
 
   post '/jump/index' do
-    #binding.pry
+    binding.pry
     @jump = Jump.create(params[:jump])
     @jump.user_id = session[:user_id]
-    @jump.user = User.find_by(session[:user_id])
+    @user = User.find_by(id: session[:user_id])
+    @user.jumps << @jump
     @jump.save
     redirect to "/jump/#{@jump.id}"
   end
@@ -29,15 +30,15 @@ class JumpsController < ApplicationController
 
   get '/jump/:id/edit' do
     @jump = Jump.find(params[:id])
-    binding.pry
+    #binding.pry
     @user = User.find_by(session[:user_id])
     erb :'/jump/edit'
   end
 
-  patch "/jump/:id" do
-
-    # jump = Jump.find_by(id: params[:id])
-    # jump.update(params[:jump])
-    # redirect to "jump/#{jump.id}"
+  patch '/jump/:id' do
+    jump = Jump.find_by(id: params[:id])
+    jump.update(params[:jump])
+    redirect to "jump/#{jump.id}"
   end
+
 end
