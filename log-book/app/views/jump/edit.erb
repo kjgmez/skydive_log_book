@@ -1,0 +1,18 @@
+<h1>Create a new Jump:</h1>
+<form action="/jump/index" method="PATCH">
+
+  <label>Jump number:</label>
+  <input id='jump_number' type="integer" name="jump[jump_number]" value="<%=@jump.id %>">
+  <br>
+  <label>Altitude:</label>
+  <input id='jump_altitude' type="integer" name="jump[altitude]" value="<%=@jump.altitude %>">
+  <br>
+  <label>Description:</label>
+  <input id='jump_description' type="text" name="jump[description]" value="<%=@jump.description %>">
+  <br>
+  <label>User:</label>
+  <%= @user.name %>
+  <br>
+  <input type="submit" value="Edit Jump">
+</form>
+
