@@ -57,8 +57,12 @@ class UsersController < ApplicationController
   end
 
   get '/user/edit' do
-    @user = User.find(session[:user_id])
-    erb :'/user/edit'
+    if logged_in?
+      @user = User.find(session[:user_id])
+      erb :'/user/edit'
+    else
+      erb :'/user/failure'
+    end
   end
 
   patch '/user/show' do

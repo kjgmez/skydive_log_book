@@ -1,19 +1,23 @@
 class JumpsController < ApplicationController
 
   get '/jump/index' do
-    binding.pry
+    @user = User.find_by(id: session[:user_id])
     erb :'/jump/index'
   end
 
   get '/jump/new' do
-    #binding.pry
-    @jumps = Jump.all
-    @user = User.find_by(session[:user_id])
-    erb :'/jump/new'
+    if logged_in?
+      #binding.pry
+      @jumps = Jump.all
+      @user = User.find_by(session[:user_id])
+      erb :'/jump/new'
+    else
+      erb :'/user/failure'
+    end
   end
 
   post '/jump/index' do
-    binding.pry
+    #binding.pry
     @jump = Jump.create(params[:jump])
     @jump.user_id = session[:user_id]
     @user = User.find_by(id: session[:user_id])
@@ -23,16 +27,24 @@ class JumpsController < ApplicationController
   end
 
   get '/jump/:id' do
-    #binding.pry
-    @jump = Jump.find(params[:id])
-    erb :'/jump/show'
+    if logged_in?
+      #binding.pry
+      @jump = Jump.find(params[:id])
+      erb :'/jump/show'
+    else
+      erb :'/user/failure'
+    end
   end
 
   get '/jump/:id/edit' do
-    @jump = Jump.find(params[:id])
-    #binding.pry
-    @user = User.find_by(session[:user_id])
-    erb :'/jump/edit'
+    if logged_in?
+      @jump = Jump.find(params[:id])
+      #binding.pry
+      @user = User.find_by(session[:user_id])
+      erb :'/jump/edit'
+    else
+      erb :'/user/failure'
+    end
   end
 
   patch '/jump/:id' do
