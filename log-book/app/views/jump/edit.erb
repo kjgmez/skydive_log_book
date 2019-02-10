@@ -1,9 +1,9 @@
-<h1>Update Jump:</h1>
-<form action="/jump/<%= @jump.id %>" method="POST">
+<h1>Edit Jump:</h1>
+<form action="/jump/<%=@jump.id%>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="patch">
 
   <label>Jump number:</label>
-  <input id='jump_number' type="integer" name="jump[jump_number]" value="<%=@jump.id %>">
+  <input id='jump_number' type="integer" name="jump[jump_number]" value="<%=@jump.jump_number %>">
   <br>
   <label>Altitude:</label>
   <input id='jump_altitude' type="integer" name="jump[altitude]" value="<%=@jump.altitude %>">
