@@ -24,4 +24,10 @@ class JumpsController < ApplicationController
     @user = User.find_by(session[:user_id])
     erb :'/jump/edit'
   end
+
+  patch 'jump/:id' do
+    jump = Jump.find(params[:id])
+    jump.updata(params[:jump])
+    redirect to "jump/#{jump.id}"
+  end
 end
