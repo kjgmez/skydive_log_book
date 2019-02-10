@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20190207235156) do
 
   create_table "jumps", force: :cascade do |t|
+    t.string  "type"
     t.integer "jump_number"
     t.integer "altitude"
     t.string  "description"
