@@ -37,8 +37,6 @@ class UsersController < ApplicationController
       if !@user.name || !@user.license || !@user.canopy_size
         redirect '/user/new'
       else
-        @jumps = Jump.all
-        binding.pry
         erb :'/user/show'
       end
     else
@@ -56,6 +54,17 @@ class UsersController < ApplicationController
     @user.update(params["user"])
     @user.save
     redirect '/user/show'
+  end
+
+  get '/user/edit' do
+    @user = User.find(session[:user_id])
+    erb :'/user/edit'
+  end
+
+  patch '/user/show' do
+    user.find(session[:user_id])
+    user.update(params[:user])
+    redirect to '/user/show'
   end
 
   get "/user/failure" do

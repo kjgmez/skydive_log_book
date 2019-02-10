@@ -13,7 +13,7 @@ class JumpsController < ApplicationController
   end
 
   post '/jump/index' do
-    binding.pry
+    #binding.pry
     @jump = Jump.create(params[:jump])
     @jump.user_id = session[:user_id]
     @jump.user = User.find_by(session[:user_id])
@@ -34,7 +34,7 @@ class JumpsController < ApplicationController
   end
 
   patch '/jump/:id' do
-    binding.pry
+    #binding.pry
     jump = Jump.find_by(id: params[:id])
     jump.update(params[:jump])
     redirect to "jump/#{jump.id}"

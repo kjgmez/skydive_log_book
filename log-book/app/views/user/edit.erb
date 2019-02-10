@@ -1,0 +1,13 @@
+<form action="/user/show" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <lable>Name:</lable>
+  <input type="text" name = "user[name]" id="user_name" value="<%= @user.name %>">
+  <br>
+  <lable>License:</lable>
+  <input type="text" name = "user[license]" id="user_license" value="<%= @user.license %>">
+  <br>
+  <lable>Canopy size:</lable>
+  <input type="integer" name = "user[canopy_size]" id="user_canopy" value="<%= @user.canopy_size %>">
+  <br>
+  <input type="submit" value="submit">
+</form>
