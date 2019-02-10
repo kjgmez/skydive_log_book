@@ -1,18 +1,14 @@
 class JumpsController < ApplicationController
 
-  get '/jump/index' do
-    @jumps = Jump.all
-    binding.pry
-    erb :'/jump/index'
-  end
-
   get '/jump/new' do
     binding.pry
+    @jumps = Jump.all
     @user = User.find_by(session[:user_id])
     erb :'/jump/new'
   end
 
   post '/jump/index' do
+    binding.pry
     @jump = Jump.create(params[:jump])
     @jump.user_id = session[:user_id]
     @jump.save

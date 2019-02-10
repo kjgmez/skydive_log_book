@@ -4,9 +4,6 @@
 <h2>License: <%=@user.license %></h2>
 <h2>Canopy size: <%=@user.canopy_size %></h2>
 
-<% @jumps.collect do |jump| %>
-  <h3><a href="/jump/<%= jump.id if jump.user_id == session[:user_id]%>">Jump <%= jump.id if jump.user_id == session[:user_id] %></a></h3>
-  <br>
-<% end %>
+
 
 <h4><a href="/user/logout">Log Out</a></h4>

@@ -1,6 +1,9 @@
 <h1>Create a new Jump:</h1>
 <form action="/jump/index" method="POST">
 
+  <label>Jump type:</label>
+  <input id='jump_type' type="text" name="jump[type]">
+  <br>
   <label>Jump number:</label>
   <input id='jump_number' type="integer" name="jump[jump_number]">
   <br>
@@ -12,6 +15,6 @@
   <br>
   <label>User:</label>
   <%= @user.name %>
-  <br>
+
   <input type="submit" value="Create New Jump">
 </form>
