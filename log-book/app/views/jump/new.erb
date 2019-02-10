@@ -1,21 +1,12 @@
 <h1>Create a new Pet</h1>
 <form action="/pets" method="POST">
-  <label>Name:</label>
-  <input id="pet_name" type="text" name="pet[name]">
 
-  <br>
-
-  Choose an existing owner:
-
-  <br>
-
-
-  <br>
-
-  <input id="owner_name" type="text" name="owner[name]">
-
-  <br>
-
-  <input type="submit" value="Create Pet">
-
+  <label>Jump number:</label>
+  <input id='jump_number' type="integer" name="jump[number]">
+  <label>Altitude:</label>
+  <input id='jump_altitude' type="integer" name="jump[altitude]">
+  <label>Description:</label>
+  <input id='jump_description' type="text" name="jump[description]">
+  <label>User:</label>
+  <%= @user.name %>
 </form>
