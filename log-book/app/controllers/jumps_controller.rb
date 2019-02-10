@@ -27,7 +27,7 @@ class JumpsController < ApplicationController
 
   patch 'jump/:id' do
     jump = Jump.find(params[:id])
-    jump.updata(params[:jump])
+    jump.update(params[:jump])
     redirect to "jump/#{jump.id}"
   end
 end
