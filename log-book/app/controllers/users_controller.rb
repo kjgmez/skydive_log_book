@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   post '/user/show' do
     @user = User.find(session[:user_id])
-    binding.pry
+    #binding.pry
     @user.update(params["user"])
     @user.save
     redirect '/user/show'
