@@ -1,7 +1,12 @@
 class JumpsController < ApplicationController
 
-  get '/jump/new' do
+  get '/jump/index' do
     binding.pry
+    @jumps = Jump
+    erb :'/jump/index'
+  end
+  get '/jump/new' do
+    #binding.pry
     @jumps = Jump.all
     @user = User.find_by(session[:user_id])
     erb :'/jump/new'
@@ -11,6 +16,7 @@ class JumpsController < ApplicationController
     binding.pry
     @jump = Jump.create(params[:jump])
     @jump.user_id = session[:user_id]
+    @jump.user = User.find_by(session[:user_id])
     @jump.save
     redirect to "/jump/#{@jump.id}"
   end
