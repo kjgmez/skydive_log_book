@@ -28,9 +28,14 @@ class JumpsController < ApplicationController
 
   get '/jump/:id' do
     if logged_in?
-      #binding.pry
+      binding.pry
       @jump = Jump.find(params[:id])
-      erb :'/jump/show'
+      @user = User.find_by(id: session[:user_id])
+      if @jump.user_id == @user.id
+        erb :'/jump/show'
+      else
+        erb :'/user/failure'
+      end
     else
       erb :'/user/failure'
     end
@@ -39,9 +44,12 @@ class JumpsController < ApplicationController
   get '/jump/:id/edit' do
     if logged_in?
       @jump = Jump.find(params[:id])
-      #binding.pry
-      @user = User.find_by(session[:user_id])
-      erb :'/jump/edit'
+      @user = User.find_by(id: session[:user_id])
+      if @jump.user_id == @user.id
+        erb :'/jump/edit'
+      else
+        erb :'/user/failure'
+      end
     else
       erb :'/user/failure'
     end
