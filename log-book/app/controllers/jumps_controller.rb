@@ -12,7 +12,8 @@ class JumpsController < ApplicationController
       @user = User.find_by(session[:user_id])
       erb :'/jump/new'
     else
-      erb :'/user/failure'
+      flash[:error] = "Please log in to make changes"
+      redirect to '/user/login'
     end
   end
 
