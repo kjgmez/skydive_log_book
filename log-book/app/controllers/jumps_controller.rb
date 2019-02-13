@@ -23,7 +23,7 @@ class JumpsController < ApplicationController
   end
 
   post '/jump/index' do
-    binding.pry
+    #binding.pry
     if params[:jump][:jump_number].empty? || params[:jump][:altitude].empty?
       flash[:error] = "Your entry mus have a Jump number and altitude"
       redirect to '/jump/new'

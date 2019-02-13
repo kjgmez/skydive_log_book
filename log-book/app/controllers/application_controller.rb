@@ -13,7 +13,7 @@ class ApplicationController < Sinatra::Base
 
   patch '/jump/:id' do
     jump = Jump.find_by(id: params[:id])
-    binding.pry
+    #binding.pry
     if params[:jump][:jump_number].empty? || params[:jump][:altitude].empty?
       flash[:error] = "Your entry mus have a Jump number and Altitude"
       redirect to "/jump/#{jump.id}/edit"
