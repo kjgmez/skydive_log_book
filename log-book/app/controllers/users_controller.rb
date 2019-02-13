@@ -6,11 +6,17 @@ class UsersController < ApplicationController
 
   post '/user/signup' do
     #binding.pry
-    if params[:username] == "" || params[:password] == "" #|| User.find_by(username: params[:username]).name.empty? == false
-      redirect '/user/failure'
+    if params[:username] == "" || params[:password] == ""
+      flash[:error] = "Please complete all fields"
+      redirect to '/user/signup'
     else
-      User.create(username: params[:username], password: params[:password])
-      redirect '/user/login'
+      if User.find_by(username: params[:username]) == nil
+        User.create(username: params[:username], password: params[:password])
+        redirect '/user/login'
+      else
+        flash[:error] = "That username is already in use"
+        redirect to '/user/signup'
+      end
     end
   end
 
@@ -26,7 +32,8 @@ class UsersController < ApplicationController
       #binding.pry
       redirect to "/user/show"
     else
-      redirect to "/user/failure"
+      flash[:error] = "Invalid Username or Password, please try again"
+      redirect to '/user/login'
     end
   end
 
@@ -40,7 +47,8 @@ class UsersController < ApplicationController
         erb :'/user/show'
       end
     else
-      redirect '/user/failure'
+      flash[:error] = "Please log in to view your profile"
+      redirect to '/user/login'
     end
   end
 
@@ -61,7 +69,8 @@ class UsersController < ApplicationController
       @user = User.find(session[:user_id])
       erb :'/user/edit'
     else
-      erb :'/user/failure'
+      flash[:error] = "Please log in to make changes"
+      redirect to '/user/login'
     end
   end
 
@@ -69,10 +78,6 @@ class UsersController < ApplicationController
     user.find(session[:user_id])
     user.update(params[:user])
     redirect to '/user/show'
-  end
-
-  get "/user/failure" do
-    erb :'/user/failure'
   end
 
   get "/user/logout" do

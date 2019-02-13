@@ -22,6 +22,11 @@ class ApplicationController < Sinatra::Base
     redirect to "jump/index"
   end
 
+  delete '/user/:id' do
+    User.destroy(params[:id])
+    redirect to '/'
+  end
+
   helpers do
     def logged_in?
       !!session[:user_id]

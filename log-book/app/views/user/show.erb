@@ -9,3 +9,8 @@
 <h3><a href="/jump/new">Add a new jump</a></h3>
 
 <h4><a href="/user/logout">Log Out</a></h4>
+
+<form method="post" action="/user/<%= @user.id %>">
+  <input type="hidden" name="_method" value="delete" />
+  <input type="submit" value="Delete Profile"/>
+</form>

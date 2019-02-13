@@ -71,5 +71,4 @@ class JumpsController < ApplicationController
     redirect to "jump/#{jump.id}"
   end
 
-
 end
