@@ -1,6 +1,6 @@
-# RedbullTeam
+# Online Skydive Log-Book
 
-Welcome to redbull_team gem. This gem is and interactive user inerface that allows you to learn more about the soccer player in the NYC Red Bull Soccer team.
+Welcome to your Online Skydive Log-Book. This a web site where you can create a user name and a password to keep all the details of your skydive. Don't worry about loosing your log-book anymore, it will be saved and protected in this online experience.
 
 ## Installation
 
@@ -14,7 +14,7 @@ In the terminal type `shotgun` and visit 'http://localhost:9393' on your browser
 
 ## Development
 
-After checking out the repo, run `bunlde install` to install dependencies. 
+After checking out the repo, run `bunlde install` to install dependencies.
 
 ## Contributing
 
@@ -27,4 +27,3 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the RedbullTeam project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/'kjgmez'/redbull_team/blob/master/CODE_OF_CONDUCT.md).
-
