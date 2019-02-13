@@ -1,8 +1,13 @@
 class JumpsController < ApplicationController
 
   get '/jump/index' do
-    @user = User.find_by(id: session[:user_id])
-    erb :'/jump/index'
+    if logged_in?
+      @user = User.find_by(id: session[:user_id])
+      erb :'/jump/index'
+    else
+      flash[:error] = "Please log in to view you index"
+      redirect to '/user/login'
+    end
   end
 
   get '/jump/new' do
@@ -12,7 +17,7 @@ class JumpsController < ApplicationController
       @user = User.find_by(session[:user_id])
       erb :'/jump/new'
     else
-      flash[:error] = "Please log in to make changes"
+      flash[:error] = "Please log in to create a jump"
       redirect to '/user/login'
     end
   end
@@ -35,10 +40,12 @@ class JumpsController < ApplicationController
       if @jump.user_id == @user.id
         erb :'/jump/show'
       else
-        erb :'/user/failure'
+        flash[:error] = "Incorrect User, you may only view your entries"
+        redirect to '/jump/index'
       end
     else
-      erb :'/user/failure'
+      flash[:error] = "Please log in to make changes"
+      redirect to '/user/login'
     end
   end
 
@@ -49,10 +56,12 @@ class JumpsController < ApplicationController
       if @jump.user_id == @user.id
         erb :'/jump/edit'
       else
-        erb :'/user/failure'
+        flash[:error] = "Incorrect User, you may only edit your entries"
+        redirect to '/jump/index'
       end
     else
-      erb :'/user/failure'
+      flash[:error] = "Please log in to make changes"
+      redirect to '/user/login'
     end
   end
 
@@ -60,6 +69,24 @@ class JumpsController < ApplicationController
     jump = Jump.find_by(id: params[:id])
     jump.update(params[:jump])
     redirect to "jump/#{jump.id}"
+  end
+
+  get path '/jump/delete' do
+
+    if logged_in?
+      @jump = Jump.find(params[:id])
+      @user = User.find_by(id: session[:user_id])
+      if @jump.user_id == @user.id
+        @jump.delete
+        erb :'/jump/index'
+      else
+        flash[:error] = "Incorrect User, you may only delete your entries"
+        redirect to '/jump/index'
+      end
+    else
+      flash[:error] = "Please log in to make changes"
+      redirect to '/user/login'
+    end
   end
 
 end
