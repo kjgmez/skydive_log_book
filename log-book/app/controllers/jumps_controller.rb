@@ -34,7 +34,7 @@ class JumpsController < ApplicationController
 
   get '/jump/:id' do
     if logged_in?
-      binding.pry
+      #binding.pry
       @jump = Jump.find(params[:id])
       @user = User.find_by(id: session[:user_id])
       if @jump.user_id == @user.id
@@ -71,22 +71,5 @@ class JumpsController < ApplicationController
     redirect to "jump/#{jump.id}"
   end
 
-  get path '/jump/delete' do
-
-    if logged_in?
-      @jump = Jump.find(params[:id])
-      @user = User.find_by(id: session[:user_id])
-      if @jump.user_id == @user.id
-        @jump.delete
-        erb :'/jump/index'
-      else
-        flash[:error] = "Incorrect User, you may only delete your entries"
-        redirect to '/jump/index'
-      end
-    else
-      flash[:error] = "Please log in to make changes"
-      redirect to '/user/login'
-    end
-  end
 
 end

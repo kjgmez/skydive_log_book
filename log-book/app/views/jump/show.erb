@@ -6,3 +6,8 @@
 <h3><a href="/user/show">Back to profile</a></h3>
 <h3><a href="/jump/index">Back to jump list</a></h3>
 <h3><a href="/jump/<%= @jump.id %>=/edit">Edit jump info</a></h3>
+<form method="post" action="/jump/<%= @jump.id %>">
+  <input type="hidden" name="_method" value="delete" />
+  <input type="submit" value="Delete Jump"/>
+</form>
+
