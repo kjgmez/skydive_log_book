@@ -1,6 +1,6 @@
 # Online Skydive Log-Book
 
-Welcome to your Online Skydive Log-Book. This a web site where you can create a user name and a password to keep all the details of your skydive. Don't worry about loosing your log-book anymore, it will be saved and protected in this online experience.
+Welcome to your Online Skydive Log-Book. This is a web site where you can create a user name and a password to keep all the details of your skydive. Don't worry about loosing your log-book anymore, it will be saved and protected in this online experience.
 
 ## Installation
 
