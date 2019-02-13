@@ -23,13 +23,18 @@ class JumpsController < ApplicationController
   end
 
   post '/jump/index' do
-    #binding.pry
-    @jump = Jump.create(params[:jump])
-    @jump.user_id = session[:user_id]
-    @user = User.find_by(id: session[:user_id])
-    @user.jumps << @jump
-    @jump.save
-    redirect to "/jump/#{@jump.id}"
+    binding.pry
+    if params[:jump][:jump_number].empty? || params[:jump][:altitude].empty?
+      flash[:error] = "Your entry mus have a Jump number and altitude"
+      redirect to '/jump/new'
+    else
+      @jump = Jump.create(params[:jump])
+      @jump.user_id = session[:user_id]
+      @user = User.find_by(id: session[:user_id])
+      @user.jumps << @jump
+      @jump.save
+      redirect to "/jump/#{@jump.id}"
+    end
   end
 
   get '/jump/:id' do
@@ -63,12 +68,6 @@ class JumpsController < ApplicationController
       flash[:error] = "Please log in to make changes"
       redirect to '/user/login'
     end
-  end
-
-  patch '/jump/:id' do
-    jump = Jump.find_by(id: params[:id])
-    jump.update(params[:jump])
-    redirect to "jump/#{jump.id}"
   end
 
 end

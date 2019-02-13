@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       redirect to '/user/signup'
     else
       if User.find_by(username: params[:username]) == nil
-        User.create(username: params[:username], password: params[:password])
+        User.create(username: params[:username].downcase, password: params[:password])
         redirect '/user/login'
       else
         flash[:error] = "That username is already in use"
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   post "/user/login" do
     #binding.pry
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: params[:username].downcase)
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       #binding.pry
@@ -57,11 +57,17 @@ class UsersController < ApplicationController
   end
 
   post '/user/show' do
-    @user = User.find(session[:user_id])
-    binding.pry
-    @user.update(params["user"])
-    @user.save
-    redirect '/user/show'
+    if params[:user][:license].upcase.count("A-D") < 2
+      @user = User.find(session[:user_id])
+      @user.update(name: params[:user][:name].capitalize,
+                   license: params[:user][:license].upcase,
+                   canopy_size: params[:user][:canopy_size])
+      @user.save
+      redirect '/user/show'
+    else
+      flash[:error] = "Please enter the letter of your license between A-D"
+      redirect to '/user/new'
+    end
   end
 
   get '/user/edit' do

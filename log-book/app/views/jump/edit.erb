@@ -3,6 +3,9 @@
 <form action="/jump/<%= @jump.id %>" method="POST">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
 
+  <label>Jump type:</label>
+  <input id='jump_type' type="text" name="jump[type_of_jump]" value="<%=@jump.type_of_jump %>">
+  <br>
   <label>Jump number:</label>
   <input id='jump_number' type="integer" name="jump[jump_number]" value="<%=@jump.jump_number %>">
   <br>
