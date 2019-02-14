@@ -1,0 +1,13 @@
+<h1> You have a total of <%= @user.jumps.count %> jumps!</h1>
+
+<h2>You can access your jumps through the following links: </h2>
+
+
+<% @user.jumps.each do |jump| %>
+  <h3><a href="/jumps/<%= jump.id %>"> Jump <%= jump.jump_number %></a></h3>
+<% end %>
+
+
+<h3><a href="/jumps/new">Add a new jump</a></h3>
+<h3><a href="/users">Back to profile</a></h3>
+<h3><a href="/users/logout">Log Out</a></h3>

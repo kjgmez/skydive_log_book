@@ -1,92 +1,79 @@
 class UsersController < ApplicationController
 
-  get '/user/signup' do
-    erb :'/user/signup'
+  get '/users/signup' do
+    erb :'/users/signup'
   end
 
-  post '/user/signup' do
+  post '/users/signup' do
     #binding.pry
-    if params[:username] == "" || params[:password] == ""
-      flash[:error] = "Please complete all fields"
-      redirect to '/user/signup'
+    @user = User.new(params)
+    if @user.save
+      redirect '/users/login'
     else
-      if User.find_by(username: params[:username]) == nil
-        User.create(username: params[:username].downcase, password: params[:password])
-        redirect '/user/login'
-      else
-        flash[:error] = "That username is already in use"
-        redirect to '/user/signup'
-      end
+      flash[:error] = @user.errors.full_messages.uniq
+      redirect to '/users/signup'
     end
   end
 
-  get "/user/login" do
-    erb :'/user/login'
+  get "/users/login" do
+    erb :'/users/login'
   end
 
-  post "/user/login" do
+  post "/users/login" do
     #binding.pry
     @user = User.find_by(username: params[:username].downcase)
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       #binding.pry
-      redirect to "/user/show"
+      redirect to "/users"
     else
       flash[:error] = "Invalid Username or Password, please try again"
-      redirect to '/user/login'
+      redirect to '/users/login'
     end
   end
 
-  get '/user/show' do
+  get '/users' do
     #binding.pry
     if logged_in?
       @user = User.find(session[:user_id])
       if !@user.name || !@user.license || !@user.canopy_size
-        redirect '/user/new'
+        redirect '/users/new'
       else
-        erb :'/user/show'
+        erb :'/users/show'
       end
     else
       flash[:error] = "Please log in to view your profile"
-      redirect to '/user/login'
+      redirect to '/users/login'
     end
   end
 
-  get '/user/new' do
-    erb :'/user/new'
+  get '/users/new' do
+    erb :'/users/new'
   end
 
-  post '/user/show' do
-    if params[:user][:license].upcase.count("A-D") < 2
-      @user = User.find(session[:user_id])
-      @user.update(name: params[:user][:name].capitalize,
-                   license: params[:user][:license].upcase,
-                   canopy_size: params[:user][:canopy_size])
-      @user.save
-      redirect '/user/show'
+  post '/users' do
+    if params[:user][:license].downcase.count("a-d") < 2
+      user = User.find(session[:user_id])
+      #binding.pry
+      user.update!(params[:user])
+      redirect '/users'
     else
       flash[:error] = "Please enter the letter of your license between A-D"
-      redirect to '/user/new'
+      redirect to '/users/new'
     end
   end
 
-  get '/user/edit' do
+  get '/users/edit' do
     if logged_in?
       @user = User.find(session[:user_id])
-      erb :'/user/edit'
+      erb :'/users/edit'
     else
       flash[:error] = "Please log in to make changes"
-      redirect to '/user/login'
+      redirect to '/users/login'
     end
   end
 
-  patch '/user/show' do
-    user.find(session[:user_id])
-    user.update(params[:user])
-    redirect to '/user/show'
-  end
-
-  get "/user/logout" do
+  get "/users/logout" do
     session.clear
     redirect "/"
   end

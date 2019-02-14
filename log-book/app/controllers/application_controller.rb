@@ -11,24 +11,24 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
-  patch '/jump/:id' do
+  patch '/jumps/:id' do
     jump = Jump.find_by(id: params[:id])
     #binding.pry
     if params[:jump][:jump_number].empty? || params[:jump][:altitude].empty?
       flash[:error] = "Your entry mus have a Jump number and Altitude"
-      redirect to "/jump/#{jump.id}/edit"
+      redirect to "/jumps/#{jump.id}/edit"
     else
       jump.update(params[:jump])
-      redirect to "jump/#{jump.id}"
+      redirect to "jumps/#{jump.id}"
     end
   end
 
-  delete '/jump/:id' do
+  delete '/jumps/:id' do
     Jump.destroy(params[:id])
-    redirect to "jump/index"
+    redirect to "/jumps"
   end
 
-  delete '/user/:id' do
+  delete '/users/:id' do
     User.destroy(params[:id])
     redirect to '/'
   end
