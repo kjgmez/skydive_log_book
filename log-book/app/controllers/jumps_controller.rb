@@ -37,16 +37,10 @@ class JumpsController < ApplicationController
   end
 
   get '/jumps/:id' do
-    if logged_in?
-      #binding.pry
+    #binding.pry
+    if logged_in? && proper_user
       @jump = Jump.find(params[:id])
-      user = User.find_by(id: session[:user_id])
-      if @jump.user_id == user.id
         erb :'/jumps/show'
-      else
-        flash[:error] = "Incorrect User, you may only view your entries"
-        redirect to '/jumps/index'
-      end
     else
       flash[:error] = "Please log in to make changes"
       redirect to '/users/login'
@@ -54,20 +48,14 @@ class JumpsController < ApplicationController
   end
 
   get '/jumps/:id/edit' do
-    if logged_in?
+    if logged_in? && proper_user
       @jump = Jump.find(params[:id])
       @user = User.find_by(id: session[:user_id])
-      if @jump.user_id == @user.id
-        erb :'/jumps/edit'
-      else
-        flash[:error] = "Incorrect User, you may only edit your entries"
-        redirect to '/jumps/index'
-      end
+      erb :'/jumps/edit'
     else
-      flash[:error] = "Please log in to make changes"
-      redirect to '/users/login'
+      flash[:error] = "Incorrect user please log in again"
+      redirect to '/users/logout'
     end
   end
-
 
 end

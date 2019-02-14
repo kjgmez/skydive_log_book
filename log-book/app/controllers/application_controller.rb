@@ -41,5 +41,11 @@ class ApplicationController < Sinatra::Base
     def current_user
       User.find(session[:user_id])
     end
+
+    def proper_user
+      jump = Jump.find(params[:id])
+      user = User.find_by(id: session[:user_id])
+      jump.user_id == user.id
+    end
   end
 end
