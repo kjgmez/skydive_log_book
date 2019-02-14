@@ -25,14 +25,25 @@ class UsersController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       #binding.pry
-      redirect to "/users"
+      redirect to "/users/#{@user.id}"
     else
       flash[:error] = "Invalid Username or Password, please try again"
       redirect to '/users/login'
     end
   end
 
-  get '/users' do
+  get '/users/new' do
+    erb :'/users/new'
+  end
+
+  post '/users' do
+    binding.pry
+    @user = User.find(session[:user_id])
+    @user.update(params[:user])
+    redirect to "/users/#{@user.id}"
+  end
+
+  get '/users/:id' do
     #binding.pry
     if logged_in?
       @user = User.find(session[:user_id])
@@ -47,23 +58,7 @@ class UsersController < ApplicationController
     end
   end
 
-  get '/users/new' do
-    erb :'/users/new'
-  end
-
-  post '/users' do
-    if params[:user][:license].downcase.count("a-d") < 2
-      user = User.find(session[:user_id])
-      #binding.pry
-      user.update!(params[:user])
-      redirect '/users'
-    else
-      flash[:error] = "Please enter the letter of your license between A-D"
-      redirect to '/users/new'
-    end
-  end
-
-  get '/users/edit' do
+  get '/users/:id/edit' do
     if logged_in?
       @user = User.find(session[:user_id])
       erb :'/users/edit'
@@ -73,9 +68,29 @@ class UsersController < ApplicationController
     end
   end
 
-  get "/users/logout" do
+
+  patch '/users/:id' do
+    #binding.pry
+    if params[:user][:license].downcase.count("a-d") < 2 && params[:user][:license].downcase.count("a-d") > 0
+      user = User.find(session[:user_id])
+      user.update!(params[:user])
+      redirect "/users/#{user.id}"
+    else
+      binding.pry
+      user = User.find(session[:user_id])
+      flash[:error] = ["Please enter the letter of your license between A-D"]
+      redirect to "/users/#{user.id}/edit"
+    end
+  end
+
+  get "/users/:id/logout" do
     session.clear
     redirect "/"
+  end
+
+  delete '/users/:id' do
+    User.destroy(params[:id])
+    redirect to '/'
   end
 
 end

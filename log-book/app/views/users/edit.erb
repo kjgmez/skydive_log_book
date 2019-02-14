@@ -1,5 +1,5 @@
-<form action="/users" method="POST">
-  <input id="hidden" type="hidden" name="_method" value="patch">
+<form action="/users/<%= @user.id %>" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
   <lable>Name:</lable>
   <input type="text" name = "user[name]" id="user_name" value="<%= @user.name %>">
   <br>

@@ -58,4 +58,21 @@ class JumpsController < ApplicationController
     end
   end
 
+  patch '/jumps/:id' do
+    jump = Jump.find_by(id: params[:id])
+    #binding.pry
+    if params[:jump][:jump_number].empty? || params[:jump][:altitude].empty?
+      flash[:error] = "Your entry mus have a Jump number and Altitude"
+      redirect to "/jumps/#{jump.id}/edit"
+    else
+      jump.update(params[:jump])
+      redirect to "jumps/#{jump.id}"
+    end
+  end
+
+  delete '/jumps/:id' do
+    Jump.destroy(params[:id])
+    redirect to "/jumps"
+  end
+
 end

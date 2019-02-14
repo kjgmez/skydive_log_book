@@ -11,28 +11,6 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
-  patch '/jumps/:id' do
-    jump = Jump.find_by(id: params[:id])
-    #binding.pry
-    if params[:jump][:jump_number].empty? || params[:jump][:altitude].empty?
-      flash[:error] = "Your entry mus have a Jump number and Altitude"
-      redirect to "/jumps/#{jump.id}/edit"
-    else
-      jump.update(params[:jump])
-      redirect to "jumps/#{jump.id}"
-    end
-  end
-
-  delete '/jumps/:id' do
-    Jump.destroy(params[:id])
-    redirect to "/jumps"
-  end
-
-  delete '/users/:id' do
-    User.destroy(params[:id])
-    redirect to '/'
-  end
-
   helpers do
     def logged_in?
       !!session[:user_id]
@@ -44,8 +22,7 @@ class ApplicationController < Sinatra::Base
 
     def proper_user
       jump = Jump.find(params[:id])
-      user = User.find_by(id: session[:user_id])
-      jump.user_id == user.id
+      jump.user_id == session[:user_id]
     end
   end
 end
