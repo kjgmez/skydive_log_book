@@ -25,37 +25,34 @@ class UsersController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       #binding.pry
-      redirect to "/users/#{@user.id}"
+      @user.name == nil ? (erb :'/users/new') : (redirect to "/users/#{@user.id}")
     else
       flash[:error] = "Invalid Username or Password, please try again"
       redirect to '/users/login'
     end
   end
 
-  get '/users/new' do
-    erb :'/users/new'
+  get '/users/:id' do
+    #binding.pry
+    @user = User.find(session[:user_id])
+    if logged_in? && correct_id?
+      erb :'/users/show'
+    else
+      flash[:error] = "Please log in to view your profile"
+      redirect to '/users/login'
+    end
   end
 
   post '/users' do
     binding.pry
     @user = User.find(session[:user_id])
-    @user.update(params[:user])
-    redirect to "/users/#{@user.id}"
-  end
-
-  get '/users/:id' do
-    #binding.pry
-    if logged_in?
-      @user = User.find(session[:user_id])
-      if !@user.name || !@user.license || !@user.canopy_size
-        redirect '/users/new'
-      else
-        erb :'/users/show'
-      end
+    if @user.update(params[:user])
+      redirect to "/users/#{@user.id}"
     else
-      flash[:error] = "Please log in to view your profile"
-      redirect to '/users/login'
+      flash[:error] = @user.errors.full_messages
+      erb :'/users/new'
     end
+
   end
 
   get '/users/:id/edit' do

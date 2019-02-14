@@ -38,7 +38,7 @@ class JumpsController < ApplicationController
 
   get '/jumps/:id' do
     #binding.pry
-    if logged_in? && proper_user
+    if logged_in? && jump_association
       @jump = Jump.find(params[:id])
         erb :'/jumps/show'
     else
@@ -48,7 +48,7 @@ class JumpsController < ApplicationController
   end
 
   get '/jumps/:id/edit' do
-    if logged_in? && proper_user
+    if logged_in? && jump_association
       @jump = Jump.find(params[:id])
       @user = User.find_by(id: session[:user_id])
       erb :'/jumps/edit'
