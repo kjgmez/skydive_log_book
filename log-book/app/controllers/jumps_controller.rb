@@ -42,8 +42,8 @@ class JumpsController < ApplicationController
       @jump = Jump.find(params[:id])
         erb :'/jumps/show'
     else
-      flash[:error] = "Please log in to make changes"
-      redirect to '/users/login'
+      flash[:error] = "Incorrect user please log in again"
+      redirect to '/users/logout'
     end
   end
 
