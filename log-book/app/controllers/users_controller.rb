@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       #binding.pry
       @user.name == nil ? (erb :'/users/new') : (redirect to "/users/#{@user.id}")
     else
-      flash[:error] = "Invalid Username or Password, please try again"
+      flash[:error] = ["Invalid Username or Password, please try again"]
       redirect to '/users/login'
     end
   end
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     if logged_in? && correct_id?
       erb :'/users/show'
     else
-      flash[:error] = "Please log in to view your profile"
+      flash[:error] = ["Please log in to view your profile"]
       redirect to '/users/login'
     end
   end
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
       @user = User.find(session[:user_id])
       erb :'/users/edit'
     else
-      flash[:error] = "Please log in to make changes"
+      flash[:error] = ["Please log in to make changes"]
       redirect to '/users/login'
     end
   end
@@ -68,14 +68,12 @@ class UsersController < ApplicationController
 
   patch '/users/:id' do
     #binding.pry
-    if params[:user][:license].downcase.count("a-d") < 2 && params[:user][:license].downcase.count("a-d") > 0
-      user = User.find(session[:user_id])
-      user.update!(params[:user])
+    user = User.find(session[:user_id])
+    if user.update(params[:user])
       redirect "/users/#{user.id}"
     else
       binding.pry
-      user = User.find(session[:user_id])
-      flash[:error] = ["Please enter the letter of your license between A-D"]
+      flash[:error] = user.errors.full_messages
       redirect to "/users/#{user.id}/edit"
     end
   end
