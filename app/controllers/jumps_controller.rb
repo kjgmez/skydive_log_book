@@ -43,8 +43,8 @@ class JumpsController < ApplicationController
       @jump = Jump.find(params[:id])
         erb :'/jumps/show'
     else
-      flash[:error] = "Incorrect user please log in again"
-      redirect to '/users/logout'
+      flash[:error] = ["That jump belongs to someone else"]
+      redirect to "/users/#{current_user.id}"
     end
   end
 
@@ -55,8 +55,8 @@ class JumpsController < ApplicationController
       @user = current_user
       erb :'/jumps/edit'
     else
-      flash[:error] = "Incorrect user please log in again"
-      redirect to '/users/logout'
+      flash[:error] = ["That jump belongs to someone else"]
+      redirect to "/users/#{current_user.id}"
     end
   end
 
