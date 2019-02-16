@@ -3,7 +3,7 @@ class JumpsController < ApplicationController
   get '/jumps' do
     #binding.pry
     if logged_in?
-      @user = User.find_by(id: session[:user_id])
+      @user = User.find(session[:user_id])
       erb :'/jumps/index'
     else
       flash[:error] = "Please log in to view you index"
@@ -15,7 +15,7 @@ class JumpsController < ApplicationController
     if logged_in?
       #binding.pry
       @type = ["Belly","Free-fly","Angle","Wing-suit","Hop & Pop"]
-      @user = User.find(session[:user_id])
+      @user = current_user
       erb :'/jumps/new'
     else
       flash[:error] = "Please log in to create a jumps"
@@ -28,7 +28,7 @@ class JumpsController < ApplicationController
     jump = Jump.new(params[:jump])
     if jump.save
       jump.user_id = session[:user_id]
-      user = User.find(session[:user_id])
+      user = current_user
       user.jumps << jump
       redirect to "/jumps/#{jump.id}"
     else
@@ -52,7 +52,7 @@ class JumpsController < ApplicationController
     if logged_in? && jump_association
       @type = ["Belly","Free-fly","Angle","Wing-suit","Hop & Pop"]
       @jump = Jump.find(params[:id])
-      @user = User.find_by(id: session[:user_id])
+      @user = current_user
       erb :'/jumps/edit'
     else
       flash[:error] = "Incorrect user please log in again"
@@ -61,7 +61,7 @@ class JumpsController < ApplicationController
   end
 
   patch '/jumps/:id' do
-    jump = Jump.find_by(id: params[:id])
+    jump = Jump.find(params[:id])
     #binding.pry
     if !jump.update(params[:jump])
       flash[:error] = jump.errors.full_messages
