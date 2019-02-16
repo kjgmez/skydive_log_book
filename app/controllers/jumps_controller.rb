@@ -28,7 +28,7 @@ class JumpsController < ApplicationController
     jump = Jump.new(params[:jump])
     if jump.save
       jump.user_id = session[:user_id]
-      user = User.find_by(id: session[:user_id])
+      user = User.find(session[:user_id])
       user.jumps << jump
       redirect to "/jumps/#{jump.id}"
     else
