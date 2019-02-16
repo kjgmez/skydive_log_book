@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id/edit' do
-    if logged_in? && correct_id? && current_user
+    if logged_in? && correct_id? && @user = current_user
       erb :'/users/edit'
     else
       flash[:error] = ["Please log in to make changes"]
