@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
   get '/users/:id' do
     #binding.pry
-    if logged_in? && correct_id? && @user = User.find(session[:user_id])
+    if logged_in? && correct_id? && @user = current_user
       erb :'/users/show'
     else
       flash[:error] = ["Please log in to view your profile"]
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
 
   post '/users' do
     #binding.pry
-    @user = User.find(session[:user_id])
+    @user = current_user
     if @user.update(params[:user])
       redirect to "/users/#{@user.id}"
     else
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id/edit' do
-    if logged_in? && correct_id? && @user = User.find(session[:user_id])
+    if logged_in? && correct_id? && current_user
       erb :'/users/edit'
     else
       flash[:error] = ["Please log in to make changes"]
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   patch '/users/:id' do
     #binding.pry
-    user = User.find(session[:user_id])
+    user = current_user
     if user.update(params[:user])
       redirect "/users/#{user.id}"
     else
