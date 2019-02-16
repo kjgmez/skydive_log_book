@@ -14,7 +14,7 @@ class JumpsController < ApplicationController
   get '/jumps/new' do
     if logged_in?
       #binding.pry
-      @type = ["Belly","Free-fly","Angle","Wing-suit"]
+      @type = ["Belly","Free-fly","Angle","Wing-suit","Hop & Pop"]
       @user = User.find_by(session[:user_id])
       erb :'/jumps/new'
     else
@@ -24,7 +24,7 @@ class JumpsController < ApplicationController
   end
 
   post '/jumps' do
-    binding.pry
+    #binding.pry
     jump = Jump.new(params[:jump])
     if jump.save
       jump.user_id = session[:user_id]
@@ -50,7 +50,7 @@ class JumpsController < ApplicationController
 
   get '/jumps/:id/edit' do
     if logged_in? && jump_association
-      @type = ["Belly","Free-fly","Angle","Wing-suit"]
+      @type = ["Belly","Free-fly","Angle","Wing-suit","Hop & Pop"]
       @jump = Jump.find(params[:id])
       @user = User.find_by(id: session[:user_id])
       erb :'/jumps/edit'
@@ -62,7 +62,7 @@ class JumpsController < ApplicationController
 
   patch '/jumps/:id' do
     jump = Jump.find_by(id: params[:id])
-    binding.pry
+    #binding.pry
     if !jump.update(params[:jump])
       flash[:error] = jump.errors.full_messages
       redirect to "/jumps/#{jump.id}/edit"
