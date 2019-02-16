@@ -10,7 +10,7 @@ gem 'bcrypt'
 gem "tux"
 gem 'sinatra-flash'
 gem 'pg', '0.20'
-gem 'dotenv' #
+gem 'dotenv'
 gem 'rails_12factor' #errors from heroku logs
 
 group :test, :development do
