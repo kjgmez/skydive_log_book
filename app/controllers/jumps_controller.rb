@@ -15,7 +15,7 @@ class JumpsController < ApplicationController
     if logged_in?
       #binding.pry
       @type = ["Belly","Free-fly","Angle","Wing-suit","Hop & Pop"]
-      @user = User.find_by(session[:user_id])
+      @user = User.find(session[:user_id])
       erb :'/jumps/new'
     else
       flash[:error] = "Please log in to create a jumps"
