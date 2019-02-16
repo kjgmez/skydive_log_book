@@ -12,5 +12,5 @@ end
 
 use Rack::MethodOverride
 use UsersController
-use JumpsControllerg
+use JumpsController
 run ApplicationController
