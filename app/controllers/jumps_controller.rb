@@ -39,13 +39,13 @@ class JumpsController < ApplicationController
 
   get '/jumps/:id' do
     #binding.pry
-    #if logged_in? && jump_association
+    if logged_in? && jump_association
       @jump = Jump.find(params[:id])
         erb :'/jumps/show'
-    #else
-     # flash[:error] = "Incorrect user please log in again"
-      #redirect to '/users/logout'
-    #end
+    else
+      flash[:error] = "Incorrect user please log in again"
+      redirect to '/users/logout'
+    end
   end
 
   get '/jumps/:id/edit' do
