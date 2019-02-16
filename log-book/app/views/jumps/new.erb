@@ -2,7 +2,10 @@
 <form action="/jumps" method="POST">
 
   <label>Jump type:</label>
-  <input id='jump_type' type="text" name="jump[type_of_jump]">
+  <% @type.each do |t| %>
+    <% #binding.pry %>
+  <input id='jump_type' type="checkbox" name="jump[type_of_jump]" value="<%= t %>"><%= t %>
+    <% end %>
   <br>
   <label>Jump number:</label>
   <input id='jump_number' type="integer" name="jump[jump_number]">
