@@ -1,6 +1,6 @@
 # Online Skydive Log-Book
 
-Welcome to your Online Skydive Log-Book. This is a web site where you can create a user name and a password to keep all the details of your skydive under one roof, your profile. Don't worry about loosing your physical log-book anymore, it will be saved and protected in this online instance of your skidives.
+Welcome to your Online Skydive Log-Book. This is a web site where you can create a user name and a password to keep all the details of your skydive under one roof, your profile. Don't worry about loosing your physical log-book anymore, it will be saved and protected in this online instance of your skydives. You can see the live app here [https://skydiving-log-book.herokuapp.com] 
 
 ## Installation
 
