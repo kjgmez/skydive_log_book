@@ -13,10 +13,9 @@ gem "tux"
 gem 'sinatra-flash'
 gem 'pg', '0.20'
 gem 'dotenv'
-gem 'rails_12factor' #errors from heroku logs
+gem 'rails_12factor' #detailed errors from heroku logs
 
 group :test, :development do
-  #ruby '2.3.3'
   gem 'sqlite3', '~> 1.3.6'
   gem 'shotgun'
   gem 'pry'
