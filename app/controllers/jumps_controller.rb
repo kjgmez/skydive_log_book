@@ -38,9 +38,9 @@ class JumpsController < ApplicationController
   end
 
   get '/jumps/:id' do
-    #binding.pry
+    binding.pry
     #if logged_in? && jump_association
-      @jump = Jump.find_by(id: params[:id])
+      @jump = Jump.find(params[:id])
         erb :'/jumps/show'
     #else
      # flash[:error] = "Incorrect user please log in again"
