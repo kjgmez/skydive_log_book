@@ -4,7 +4,7 @@
   <label>Jump type:</label>
   <% @type.each do |t| %>
     <% #binding.pry %>
-  <input id='jump_type' type="checkbox" name="jump[type_of_jump]" value="<%= t %>"><%= t %>
+  <input id='jump_type' type="radio" name="jump[type_of_jump]" value="<%= t %>"><%= t %>
     <% end %>
   <br>
   <label>Jump number:</label>
@@ -18,6 +18,6 @@
   <br>
   <label>User:</label>
   <%= @user.name %>
-
+  <br>
   <input type="submit" value="Create New Jump">
 </form>
