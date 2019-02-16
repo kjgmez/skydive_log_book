@@ -3,7 +3,7 @@ class JumpsController < ApplicationController
   get '/jumps' do
     #binding.pry
     if logged_in?
-      @user = User.find(session[:user_id])
+      @user = current_user
       erb :'/jumps/index'
     else
       flash[:error] = "Please log in to view you index"
