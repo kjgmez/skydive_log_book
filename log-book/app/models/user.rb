@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :jumps
 
   validates :username, uniqueness: true
-  #validates :password, length: {minimum: 5}
+  validates :password, length: {minimum: 5, allow_nil: true}
   validates :username, :password_digest, presence: true
   validates :name, :license, :canopy_size, presence: true, if: :saved?
   validates :license, length: {maximum: 1, message: "should only be 1 letter"}

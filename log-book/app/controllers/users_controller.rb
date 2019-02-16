@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     if user.update(params[:user])
       redirect "/users/#{user.id}"
     else
-      binding.pry
+      #binding.pry
       flash[:error] = user.errors.full_messages
       redirect to "/users/#{user.id}/edit"
     end
