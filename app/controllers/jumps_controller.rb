@@ -13,7 +13,7 @@ class JumpsController < ApplicationController
 
   get '/jumps/new' do
     if logged_in?
-      #binding.pry
+      binding.pry
       @type = ["Belly","Free-fly","Angle","Wing-suit","Hop & Pop"]
       @user = current_user
       erb :'/jumps/new'
