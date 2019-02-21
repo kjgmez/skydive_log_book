@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       redirect '/users/login'
     else
       flash[:error] = @user.errors.full_messages.uniq
-      redirect to '/users/signup'
+      erb :'/users/signup'
     end
   end
 
@@ -21,11 +21,11 @@ class UsersController < ApplicationController
 
   post "/users/login" do
     #binding.pry
-    @user = User.find_by(username: params[:username].downcase)
-    if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
+    user = User.find_by(username: params[:username].downcase)
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
       #binding.pry
-      @user.name == nil ? (erb :'/users/new') : (redirect to "/users/#{@user.id}")
+      user.name == nil ? (erb :'/users/new') : (redirect to "/users/#{user.id}")
     else
       flash[:error] = ["Invalid Username or Password, please try again"]
       redirect to '/users/login'
