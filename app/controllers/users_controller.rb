@@ -34,7 +34,8 @@ class UsersController < ApplicationController
 
   get '/users/:id' do
     #binding.pry
-    if logged_in? && correct_id? && @user = current_user
+    if logged_in? && correct_id?
+        @user = current_user
       erb :'/users/show'
     else
       flash[:error] = ["Please log in to view your profile"]

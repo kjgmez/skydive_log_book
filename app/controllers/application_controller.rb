@@ -23,7 +23,7 @@ class ApplicationController < Sinatra::Base
 
     def jump_association
       jump = Jump.find(params[:id])
-      jump.user_id == session[:user_id]
+      jump.user.id == session[:user_id]
     end
 
     def correct_id?
